@@ -16,17 +16,29 @@ function App() {
     const name = memoNameRef.current.value
     if (name === "") return
     setMemos((prevmemos) => {
-      return [...prevmemos, { id: uuidv4(), name: name }]
+      return [...prevmemos, { id: uuidv4(), name: name, checked: false }]
     })
 
     memoNameRef.current.value = null
   }
 
+  const handleDeleteMemo = () => {
+    const newMemos = memos.filter((memo) => !memo.checked)
+    setMemos(newMemos)
+  }
+
+  const toggleMemo = (id) => {
+    const newMemos = [...memos]
+    const memo = newMemos.find((memo) => memo.id === id)
+    memo.checked = !memo.checked
+    setMemos(newMemos)
+  }
   return (
     <>
       <input type="text" ref={memoNameRef} />
       <button onClick={handleAddMemo}>追加</button>
-      <MemoPage memos={memos} />
+      <button onClick={handleDeleteMemo}>削除</button>
+      <MemoPage memos={memos} toggleMemo={toggleMemo} />
     </>
   )
 }

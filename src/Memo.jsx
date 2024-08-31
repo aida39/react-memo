@@ -1,11 +1,20 @@
 import React from 'react';
 
-const Memo = ({ memo }) => {
-    // const handleTodoClick = () => {
-    //     toggleTodo(todo.id)
-    // }
+const Memo = ({ memo,toggleMemo }) => {
+    const handleMemoClick = () => {
+        toggleMemo(memo.id)
+    }
     return (
-        <div>{memo.name}</div>
+        <div>
+            <input
+                type="checkbox"
+                checked={memo.checked}
+                readOnly
+                onChange={handleMemoClick}
+            />
+
+            <span>{memo.name}</span>
+        </div>
     );
 };
 
